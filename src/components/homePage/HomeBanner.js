@@ -10,11 +10,11 @@ import {
 
 import { useGlobalStateContext } from "../../context/globalContext"
 
-import useWIndowSize from "../../hooks/useWindowSize"
+import useWindowSize from "../../hooks/useWindowSize"
 
-const HomeBanner = () => {
+const HomeBanner = ({ onCursor }) => {
   let canvas = useRef(null)
-  const size = useWIndowSize()
+  const size = useWindowSize()
   const { currentTheme } = useGlobalStateContext()
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const HomeBanner = () => {
         drawingCtx.moveTo(lastX, lastY)
         drawingCtx.lineTo(currentX, currentY)
         drawingCtx.closePath()
-        drawingCtx.lineWidth = 120
+        drawingCtx.lineWidth = 90
         drawingCtx.stroke()
         lastX = currentX
         lastY = currentY
@@ -63,6 +63,27 @@ const HomeBanner = () => {
       }
     })
   }, [currentTheme])
+
+  const parent = {
+    initial: { y: 800 },
+    animate: {
+      y: 0,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  const child = {
+    initial: { y: 800 },
+    animate: {
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.6, 0.05, -0.01, 0.9],
+      },
+    },
+  }
 
   return (
     <Banner>
@@ -72,31 +93,22 @@ const HomeBanner = () => {
           width={size.width}
           loop
           autoPlay
-          preload
           src={require("../../assets/video/video.mp4")}
         />
       </Video>
-      <Canvas ref={canvas} />
-      <BannerTitle>
-        <Headline>DIG</Headline>
-        <Headline>DEEP</Headline>
+      <Canvas
+        ref={canvas}
+        width={size.width}
+        height={size.height}
+        onMouseEnter={() => onCursor("hovered")}
+        onMouseLeave={onCursor}
+      />
+      <BannerTitle variants={parent} initial="initial" animate="animate">
+        <Headline variants={child}>DIG</Headline>
+        <Headline variants={child}>DEEP</Headline>
       </BannerTitle>
     </Banner>
   )
 }
 
 export default HomeBanner
-
-import React, { useEffect, useRef } from "react"
-//Custom Hook
-import useWindowSize from "../../hooks/useWindowSize"
-//Context
-import { useGlobalStateContext } from "../../context/globalContext"
-//Styled Components
-import {
-  Banner,
-  Video,
-  BannerTitle,
-  Canvas,
-  Headline,
-} from "../../styles/homeStyle"
