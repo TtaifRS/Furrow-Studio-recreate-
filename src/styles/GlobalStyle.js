@@ -60,3 +60,30 @@ export const Flex = styled.div`
     `}
 
 `
+
+export const Cursor = styled.div`
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  width: 24px;
+  height: 24px;
+  background: ${props => props.theme.red};
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-in-out;
+  transition-property: width, height, border;
+  will-change: width, height, transform, border;
+  pointer-events: none;
+  z-index: 999;
+
+  &.pointer {
+    border: 4px solid ${props => props.theme.text} !important;
+  }
+
+  &.hovered {
+    background: transparent !important;
+    width: 56px;
+    height: 56px;
+    border: 4px solid ${props => props.theme.red};
+  }
+`

@@ -6,13 +6,17 @@ import { createGlobalStyle, ThemeProvider } from "styled-components"
 import { normalize } from "styled-normalize"
 import Header from "./header"
 
-import { useGlobalStateContext } from "../context/globalContext"
+import {
+  useGlobalStateContext,
+  useGlobalDispatchContext,
+} from "../context/globalContext"
+import CustomCursor from "./customCursor"
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
   *{
     text-decoration: none;
-    /* cursor: none; */
+    cursor: none;
   }
 
 
@@ -53,12 +57,20 @@ const Layout = ({ children }) => {
     red: "#ea291e",
   }
 
-  const { currentTheme } = useGlobalStateContext()
+  const { currentTheme, cursorStyle } = useGlobalStateContext()
+
+  const dispatch = useGlobalDispatchContext()
+
+  const onCursor = cursorType => {
+    cursorType = (cursorStyle.includes(cursorType) && cursorType) || false
+    dispatch({ type: "CURSOR_TYPE", cursorType: cursorType })
+  }
 
   return (
     <ThemeProvider theme={currentTheme === "dark" ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Header />
+      <CustomCursor />
+      <Header onCursor={onCursor} />
       <main>{children}</main>
     </ThemeProvider>
   )
