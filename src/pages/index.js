@@ -1,5 +1,7 @@
 import React from "react"
 import HomeBanner from "../components/homePage/HomeBanner"
+import HomeContent from "../components/homePage/homeContent"
+import HomeFeatured from "../components/homePage/homeFeatured"
 import Layout from "../components/layout"
 import {
   useGlobalStateContext,
@@ -17,6 +19,8 @@ const IndexPage = props => {
   return (
     <Layout>
       <HomeBanner onCursor={onCursor} />
+      <HomeContent />
+      <HomeFeatured onCursor={onCursor} />
     </Layout>
   )
 }
