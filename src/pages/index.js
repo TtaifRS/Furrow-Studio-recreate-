@@ -1,7 +1,8 @@
 import React from "react"
+import HomeAbout from "../components/homePage/HomeAbout"
 import HomeBanner from "../components/homePage/HomeBanner"
-import HomeContent from "../components/homePage/homeContent"
-import HomeFeatured from "../components/homePage/homeFeatured"
+import HomeContent from "../components/homePage/HomeContent"
+import HomeFeatured from "../components/homePage/HomeFeatured"
 import Layout from "../components/layout"
 import {
   useGlobalStateContext,
@@ -21,6 +22,7 @@ const IndexPage = props => {
       <HomeBanner onCursor={onCursor} />
       <HomeContent />
       <HomeFeatured onCursor={onCursor} />
+      <HomeAbout onCursor={onCursor} />
     </Layout>
   )
 }
