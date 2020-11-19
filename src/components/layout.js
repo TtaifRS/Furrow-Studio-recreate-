@@ -1,11 +1,11 @@
-import React, { Fragment, useState } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 import { normalize } from "styled-normalize"
 import Header from "./header"
-
+import Footer from "./footer"
 import {
   useGlobalStateContext,
   useGlobalDispatchContext,
@@ -46,16 +46,22 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const [hamburgerPosition, setHamburgerPosition] = useState({ x: 0, y: 0 })
+
   const darkTheme = {
     background: "#000",
     text: "#fff",
     red: "#ea291e",
+    left: `${hamburgerPosition.x}px`,
+    top: `${hamburgerPosition.y}px`,
   }
 
   const lightTheme = {
     background: "#fff",
     text: "#000",
     red: "#ea291e",
+    left: `${hamburgerPosition.x}px`,
+    top: `${hamburgerPosition.y}px`,
   }
 
   const { currentTheme, cursorStyle } = useGlobalStateContext()
@@ -77,6 +83,8 @@ const Layout = ({ children }) => {
         onCursor={onCursor}
         toggleMenu={toggleMenu}
         setToggleMenu={setToggleMenu}
+        hamburgerPosition={hamburgerPosition}
+        setHamburgerPosition={setHamburgerPosition}
       />
       <Navigation
         onCursor={onCursor}
@@ -84,6 +92,7 @@ const Layout = ({ children }) => {
         setToggleMenu={setToggleMenu}
       />
       <main>{children}</main>
+      <Footer onCursor={onCursor} />
     </ThemeProvider>
   )
 }

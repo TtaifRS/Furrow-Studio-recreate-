@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { Link } from "gatsby"
 import React, { useState } from "react"
-
+import { FooterContent, FooterSocial } from "../styles/footerStyle"
+import { Instagram, Facebook, Vimeo } from "../assets/svg/social-icons"
 import { Container, Flex } from "../styles/GlobalStyle"
 import {
   Nav,
@@ -10,7 +11,7 @@ import {
   NavList,
   NavFooter,
   NavVideo,
-} from "../styles/NavigationStyle"
+} from "../styles/navigationStyle"
 
 const navRoutes = [
   {
@@ -130,7 +131,39 @@ const Navigation = ({ toggleMenu, setToggleMenu, onCursor }) => {
                   ))}
                 </ul>
               </NavList>
-              <NavFooter></NavFooter>
+              <NavFooter>
+                <Flex spaceBetween>
+                  <FooterContent>
+                    <p>info@furrow.studio</p>
+                  </FooterContent>
+                  <FooterContent wider>
+                    <p>922.125.289</p>
+                  </FooterContent>
+                  <FooterSocial>
+                    <a
+                      onMouseEnter={() => onCursor("pointer")}
+                      onMouseLeave={onCursor}
+                      href="/"
+                    >
+                      <Instagram />
+                    </a>
+                    <a
+                      onMouseEnter={() => onCursor("pointer")}
+                      onMouseLeave={onCursor}
+                      href="/"
+                    >
+                      <Facebook />
+                    </a>
+                    <a
+                      onMouseEnter={() => onCursor("pointer")}
+                      onMouseLeave={onCursor}
+                      href="/"
+                    >
+                      <Vimeo />
+                    </a>
+                  </FooterSocial>
+                </Flex>
+              </NavFooter>
               <NavVideo>
                 <motion.div
                   animate={{ width: revealVideo.show ? 0 : "100%" }}
